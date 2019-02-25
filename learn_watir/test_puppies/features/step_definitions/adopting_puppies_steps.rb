@@ -56,13 +56,13 @@ When("I click the second View Details button") do
 end
 
 Then("I should see {string} as the name for line item {int}") do |name, line_item|
-  expect(@current_page.name_for_line_item(line_item)). to include name
+  expect(on(ShoppingCartPage).name_for_line_item(line_item)). to include name
 end
 
 Then("I should see {string} as the subtotal for line item {int}") do |subtotal, line_item|
-  expect(@cart.subtotal_for_line_item(line_item)). to eql subtotal
+  expect(on(ShoppingCartPage).subtotal_for_line_item(line_item)). to eql subtotal
 end
 
 Then("I should see {string} as the cart total") do |total|
-  expect(@cart.cart_total). to eql total
+  expect(on(ShoppingCartPage).cart_total). to eql total
 end
