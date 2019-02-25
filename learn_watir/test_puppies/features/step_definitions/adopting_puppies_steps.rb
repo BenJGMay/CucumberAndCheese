@@ -8,57 +8,55 @@
 #end
 
 Given("I am on the puppy adoption site") do
-  @browser.goto("http://puppies.herokuapp.com/")
+  visit(HomePage)
 end
 
 When("I click the first View Details button") do
-  @browser.button(value: "View Details", index: 0).click
+  on(HomePage).select_puppy_number 1
 end
 
 When("I click the Adopt Me button") do
-  @browser.button(value: "Adopt Me!").click
-  @cart = ShoppingCartPage.new(@browser)
+  on(DetailsPage).add_to_cart
 end
 
 When("I click the Complete the Adoption button") do
-  @cart.proceed_to_checkout
-  @checkout = CheckoutPage.new(@browser)
+  on(ShoppingCartPage).proceed_to_checkout
 end
 
 When("I enter {string} in the name field") do |name|
-  @checkout.name = name
+  on(CheckoutPage).name = name
 end
 
 When("I enter {string} in the address field") do |address|
-  @checkout.address = address
+  on(CheckoutPage).address = address
 end
 
 When("I enter {string} in the email field") do |email|
-  @checkout.email = email
+  on(CheckoutPage).email = email
 end
 
 When("I select {string} from the pay with dropdown") do |pay_type|
-  @checkout.pay_type = pay_type
+  on(CheckoutPage).pay_type = pay_type
 end
 
 When("I click the Place Order button") do
-  @checkout.place_order
+  on(CheckoutPage).place_order
 end
 
 Then("I should see {string}") do |expected|
-  expect(@browser.text).to include expected
+  expect(@current_page.text).to include expected
 end
 
 When("I click the Adopt Another Puppy button") do
-  @cart.continue_shopping
+  on(ShoppingCartPage).continue_shopping
 end
 
 When("I click the second View Details button") do
-  @browser.button(value: "View Details", index: 1).click
+  on(HomePage).select_puppy_number 2
 end
 
 Then("I should see {string} as the name for line item {int}") do |name, line_item|
-  expect(@cart.name_for_line_item(line_item)). to include name
+  expect(@current_page.name_for_line_item(line_item)). to include name
 end
 
 Then("I should see {string} as the subtotal for line item {int}") do |subtotal, line_item|
