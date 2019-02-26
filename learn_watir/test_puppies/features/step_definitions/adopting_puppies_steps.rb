@@ -2,6 +2,13 @@ Given("I am on the puppy adoption site") do
   visit(HomePage)
 end
 
+When("I complete the adoption of a puppy") do
+  on(HomePage).select_puppy
+  on(DetailsPage).add_to_cart
+  on(ShoppingCartPage).proceed_to_checkout
+  on(CheckoutPage).checkout
+end
+
 When("I click the View Details button for {string}") do |name|
   on(HomePage).select_puppy name
 end
@@ -12,6 +19,19 @@ end
 
 When("I click the Complete the Adoption button") do
   on(ShoppingCartPage).proceed_to_checkout
+end
+
+When("I complete the adoption with:") do |table|
+  # table is a Cucumber::MultilineArgument::DataTable
+  on(CheckoutPage).checkout(table.hashes.first)
+end
+
+When("I complete the adoption using a Credit card") do
+  on(CheckoutPage).checkout('pay_type' => 'Credit card')
+end
+
+When("I complete the adoption") do
+  on(CheckoutPage).checkout
 end
 
 When("I click the Adopt Another Puppy button") do
