@@ -1,18 +1,9 @@
-
-#def row_for(line_item)
-#  (line_item -1) * 6
-#end
-
-#def cart_line_item(line_item)
-#  @browser.table(index: 0)[row_for(line_item)]
-#end
-
 Given("I am on the puppy adoption site") do
   visit(HomePage)
 end
 
-When("I click the first View Details button") do
-  on(HomePage).select_puppy_number 1
+When("I click the View Details button for {string}") do |name|
+  on(HomePage).select_puppy name
 end
 
 When("I click the Adopt Me button") do
@@ -21,6 +12,10 @@ end
 
 When("I click the Complete the Adoption button") do
   on(ShoppingCartPage).proceed_to_checkout
+end
+
+When("I click the Adopt Another Puppy button") do
+  on(ShoppingCartPage).continue_shopping
 end
 
 When("I enter {string} in the name field") do |name|
@@ -45,14 +40,6 @@ end
 
 Then("I should see {string}") do |expected|
   expect(@current_page.text).to include expected
-end
-
-When("I click the Adopt Another Puppy button") do
-  on(ShoppingCartPage).continue_shopping
-end
-
-When("I click the second View Details button") do
-  on(HomePage).select_puppy_number 2
 end
 
 Then("I should see {string} as the name for line item {int}") do |name, line_item|
