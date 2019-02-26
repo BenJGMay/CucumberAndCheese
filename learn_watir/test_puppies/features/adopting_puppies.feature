@@ -87,3 +87,8 @@ Scenario: Validate cart with two puppies
   And I should see "Hanna" as the name for line item 2
   And I should see "$22.99" as the subtotal for line item 2
   And I should see "$57.94" as the cart total
+
+@datamagic_checkout
+Scenario: Name is a required field
+  When I checkout leaving the name field blank
+  Then I should see the error message "Name can't be blank"

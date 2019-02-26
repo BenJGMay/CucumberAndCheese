@@ -73,3 +73,14 @@ end
 Then("I should see {string} as the cart total") do |total|
   expect(on(ShoppingCartPage).cart_total). to eql total
 end
+
+When("I checkout leaving the name field blank") do
+  on(HomePage).select_puppy
+  on(DetailsPage).add_to_cart
+  on(ShoppingCartPage).proceed_to_checkout
+  on(CheckoutPage).checkout('name' => '')
+end
+
+Then("I should see the error message {string}") do |msg|
+  expect(@current_page.error.messages).to include msg
+end
