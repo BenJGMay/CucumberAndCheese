@@ -1,5 +1,9 @@
+require_relative 'side_menu_panel'
+
 class ShoppingCartPage
   include PageObject
+
+  page_section(:side_menu, SideMenuPanel, id: 'navlist')
 
   NAME_COLUMN = 1
   SUBTOTAL_COLUMN = 3

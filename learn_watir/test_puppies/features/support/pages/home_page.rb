@@ -1,5 +1,9 @@
+require_relative 'side_menu_panel'
+
 class HomePage
   include PageObject
+
+  page_section(:side_menu, SideMenuPanel, id: 'navlist')
 
   page_url "http://puppies.herokuapp.com/"
 

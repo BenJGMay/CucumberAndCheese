@@ -82,5 +82,5 @@ When("I checkout leaving the name field blank") do
 end
 
 Then("I should see the error message {string}") do |msg|
-  expect(@current_page.error.messages).to include msg
+  expect(@current_page).to have_error_message msg #custom RSpec matcher
 end

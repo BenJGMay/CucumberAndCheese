@@ -1,8 +1,11 @@
 require_relative 'error_panel'
+require_relative 'side_menu_panel'
 
 class CheckoutPage
   include PageObject
   include DataMagic
+
+  page_section(:side_menu, SideMenuPanel, id: 'navlist')
 
   text_field(:name, id: "order_name")
   text_area(:address, id: "order_address")
