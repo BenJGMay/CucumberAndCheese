@@ -1,9 +1,12 @@
 require 'require_all'
-require-rel 'pages'
+require_rel 'pages' # adds everything in the pages directory
+
+# We must set a default route, an array of arrays, each of which contains a
+# PageObject and a default method to call = we could add parameters if we wanted
 
 PageObject::PageFactory.routes = {
-  default: [[Homepage, :select_puppy],
+  default: [[HomePage, :select_puppy],
             [DetailsPage, :add_to_cart],
-            [ShoppingCartPage, :proceed_to_checkout]
+            [ShoppingCartPage, :proceed_to_checkout],
             [CheckoutPage, :checkout]]
 }
