@@ -84,3 +84,23 @@ end
 Then("I should see the error message {string}") do |msg|
   expect(@current_page).to have_error_message msg #custom RSpec matcher
 end
+
+Given("I have a pending adoption for {string}") do |name|
+  on(HomePage).select_puppy
+  on(DetailsPage).add_to_cart
+  on(ShoppingCartPage).proceed_to_checkout
+  on(CheckoutPage).checkout('name' => name)
+end
+
+When("I process that pending adoption") do
+  visit(LoginPage)
+  on(LoginPage).login_with('admin', 'password')
+  on(LoginPage).side_menu.adoptions
+  on(AdoptionsPage).process_puppy
+
+end
+
+Then("I should see a please thank {string} message") do |customer|
+  thank_you_msg = "Please thank #{customer} for the order!"
+  expect(@current_page.text).to include thank_you_msg
+end

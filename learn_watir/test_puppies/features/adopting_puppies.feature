@@ -92,3 +92,9 @@ Scenario: Validate cart with two puppies
 Scenario: Name is a required field
   When I checkout leaving the name field blank
   Then I should see the error message "Name can't be blank"
+
+@datamagic_checkout
+Scenario: Verify message when adoption is processed
+  Given I have a pending adoption for "Peter Jones"
+  When I process that pending adoption
+  Then I should see a please thank "Peter Jones" message
